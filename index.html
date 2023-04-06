@@ -23,6 +23,18 @@
     let playerScore = 0;
     let CPUScore = 0;
 
+    const restartButton = document.createElement("button");
+    restartButton.textContent = "Restart";
+    restartButton.addEventListener("click", () => {
+        playerScore = 0;
+        CPUScore = 0;
+        outcome = "";
+        restartButton.remove();
+        enableButtons();
+        updateHTML(outcome);
+    })
+
+
     buttons.forEach((button) => {
         button.addEventListener("click", () => {
             playerSelection = button.id;
@@ -40,20 +52,26 @@
         }
         if (playerScore >= 5) {
             outcome = "Game over. Player wins!";
-            // disableButtons();
+            disableButtons();
+            document.body.appendChild(restartButton);
         }
         if (CPUScore >= 5) {
             outcome = "Game over. Computer wins!";
-            // disableButtons();
+            disableButtons();
+            document.body.appendChild(restartButton);
         }
         playerScoreDiv.textContent = `Player's score: ${playerScore}`;
         CPUScoreDiv.textContent = `Computer's score: ${CPUScore}`;
         resultsDiv.textContent = `${outcome}`;
     }
 
-    // function disableButtons() {
-    //     buttons.forEach((button) => button.disabled = true);
-    // }
+    function disableButtons() {
+        buttons.forEach((button) => button.disabled = true);
+    }
+
+    function enableButtons() {
+        buttons.forEach((button) => button.disabled = false);
+    }
         
     function getComputerChoice() {
         let randomNumber = Math.floor(Math.random()*3)
@@ -105,14 +123,6 @@
         }
     }
 
-    function game() {
-        // console.log(playRound(getComputerChoice() ,prompt("Pick rock/paper/scissors")))
-        // console.log(playRound(getComputerChoice() ,prompt("Pick rock/paper/scissors")))
-        // console.log(playRound(getComputerChoice() ,prompt("Pick rock/paper/scissors")))
-        // console.log(playRound(getComputerChoice() ,prompt("Pick rock/paper/scissors")))
-        // console.log(playRound(getComputerChoice() ,prompt("Pick rock/paper/scissors")))
-    }
-    game()
   </script>
 </body>
 </html>
