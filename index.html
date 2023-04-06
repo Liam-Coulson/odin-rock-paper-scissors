@@ -5,12 +5,58 @@
   <title>Page Title</title>
 </head>
 <body>
+  <button id="rock">Rock</button>
+  <button id="paper">Paper</button>
+  <button id="scissors">Scissors</button>
+  <div id="resultsDiv"></div>
+  <div id="playerScoreDiv"></div>
+  <div id="CPUScoreDiv"></div>
+
+
+
   <script>
     // Your JavaScript goes here!
+    const buttons = document.querySelectorAll("button");
+    const resultsDiv = document.getElementById("resultsDiv");
+    const playerScoreDiv = document.getElementById("playerScoreDiv");
+    const CPUScoreDiv = document.getElementById("CPUScoreDiv");
+    let playerScore = 0;
+    let CPUScore = 0;
+
+    buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+            playerSelection = button.id;
+            let outcome = playRound(playerSelection);
+            updateHTML(outcome);
+        });
+    });
+
+    function updateHTML(outcome) {
+        if (outcome === "Player wins") {
+            playerScore++;
+        }
+        if (outcome === "Computer wins") {
+            CPUScore++;
+        }
+        if (playerScore >= 5) {
+            outcome = "Game over. Player wins!";
+            // disableButtons();
+        }
+        if (CPUScore >= 5) {
+            outcome = "Game over. Computer wins!";
+            // disableButtons();
+        }
+        playerScoreDiv.textContent = `Player's score: ${playerScore}`;
+        CPUScoreDiv.textContent = `Computer's score: ${CPUScore}`;
+        resultsDiv.textContent = `${outcome}`;
+    }
+
+    // function disableButtons() {
+    //     buttons.forEach((button) => button.disabled = true);
+    // }
         
     function getComputerChoice() {
         let randomNumber = Math.floor(Math.random()*3)
-        console.log(randomNumber)
         if (randomNumber == 0) {
             return "rock"
         }
@@ -22,8 +68,8 @@
         }
     }
 
-    function playRound(computerSelection, playerSelection) {
-        playerSelection = playerSelection.toLowerCase()
+    function playRound(playerSelection) {
+        computerSelection = getComputerChoice();
         if (playerSelection == "rock") {
             if (computerSelection == "scissors") {
                 return "Player wins"
@@ -60,11 +106,11 @@
     }
 
     function game() {
-        console.log(playRound(getComputerChoice() ,prompt("Pick rock/paper/scissors")))
-        console.log(playRound(getComputerChoice() ,prompt("Pick rock/paper/scissors")))
-        console.log(playRound(getComputerChoice() ,prompt("Pick rock/paper/scissors")))
-        console.log(playRound(getComputerChoice() ,prompt("Pick rock/paper/scissors")))
-        console.log(playRound(getComputerChoice() ,prompt("Pick rock/paper/scissors")))
+        // console.log(playRound(getComputerChoice() ,prompt("Pick rock/paper/scissors")))
+        // console.log(playRound(getComputerChoice() ,prompt("Pick rock/paper/scissors")))
+        // console.log(playRound(getComputerChoice() ,prompt("Pick rock/paper/scissors")))
+        // console.log(playRound(getComputerChoice() ,prompt("Pick rock/paper/scissors")))
+        // console.log(playRound(getComputerChoice() ,prompt("Pick rock/paper/scissors")))
     }
     game()
   </script>
